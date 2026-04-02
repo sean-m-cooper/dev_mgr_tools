@@ -45,9 +45,9 @@ Token estimates use the `chars / 4` approximation. Actual counts vary slightly b
 | `standards/csharp-conventions.md` | 206 | Any C# code changes |
 | `standards/commenting-documentation.md` | 90 | Adding docs or inline comments |
 | `standards/api-controllers.md` | 85 | Controller or endpoint work |
-| `standards/CICD & DevOps.md` | 64 | Build pipelines or deployment scripts |
-| `standards/performance.md` | 63 | Performance-critical code |
-| `standards/testing-standards.md` | 57 | Writing or modifying tests |
+| `standards/CICD & DevOps.md` | 328 | Build pipelines or deployment scripts |
+| `standards/performance.md` | 330 | Performance-critical code |
+| `standards/testing-standards.md` | 361 | Writing or modifying tests |
 
 ### On demand (fetched only when building a new feature)
 
