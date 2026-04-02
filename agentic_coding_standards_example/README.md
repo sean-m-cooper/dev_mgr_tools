@@ -106,7 +106,6 @@ Token estimates use the `chars / 4` approximation. Actual counts vary slightly b
 1. **Replace the tech stack** — `architecture.md` lists .NET, EF Core, AWS Lambda. Update this to match your actual stack.
 2. **Replace the example domain** — all code samples use an `Order`/`Account` domain. Swap in your own domain types when you rewrite the examples.
 3. **Update the module table** — `agentic_standards.md` lists every module with its load condition. Add, remove, or rename modules to match what you actually have.
-4. **Rewrite AWS Lambda / Azure Functions** — these were intentionally omitted from this sample as placeholders. Add your own serverless or background-processing standards if relevant.
-5. **Add an approved packages list** — `standards/approved-packages.md` is referenced in the PR checklist but not included here. Create one listing your approved NuGet packages, linters, and test frameworks.
-6. **Keep rules cheap, code expensive** — the pattern that makes this work is storing all rules as prose/tables (low token cost) and moving code examples to `.cs` files in `standards/examples/` that are only fetched when needed. Maintain that separation as you add new modules.
-7. **Version it with your codebase** — these files should live in the same repo as your code so that standards and implementation stay in sync. Changes to standards go through the same PR review as code changes.
+4. **Add an approved packages list** — `standards/approved-packages.md` is referenced in the PR checklist but not included here. Create one listing your approved NuGet packages, linters, and test frameworks.
+5. **Keep rules cheap, code expensive** — the pattern that makes this work is storing all rules as prose/tables (low token cost) and moving code examples to `.cs` files in `standards/examples/` that are only fetched when needed. Maintain that separation as you add new modules.
+6. **Version it with your codebase** — these files should live in the same repo as your code so that standards and implementation stay in sync. Changes to standards go through the same PR review as code changes.
