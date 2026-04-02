@@ -8,12 +8,7 @@ This module defines the supported technology stack, architectural style, and fou
 
 ### Primary Platforms
 
-* .NET 10 (net10.0)
-* .NET 6 (net6.0) where legacy constraints exist
-* .NET Framework 4.8 (legacy)
-* C# 14 / C# 10
-* EF Core 10 / EF Core 6
-* AWS Lambda (.NET)
+.NET 10 (primary) · .NET 6 / .NET Framework 4.8 (legacy) · C# 14/10 · EF Core 10/6 · AWS Lambda (.NET) · Azure Functions (.NET isolated worker)
 
 ### Architectural Style
 

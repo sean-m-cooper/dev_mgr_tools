@@ -1,18 +1,20 @@
 # DTO & Mapping Conventions
 
 > **Load when:** Creating DTOs, request/response objects, view models, or mapping logic
+>
+> For a complete DTO example in context (request, response, controller, tests), see [`examples/orders-reference.cs`](examples/orders-reference.cs).
 
 ---
 
 ## DTO Types & When to Use Each
 
-| Type | Use For | Naming | Example |
-|---|---|---|---|
-| **Response DTO** | Data returned from API endpoints | `*Response` | `OrderResponse` |
-| **Request DTO** | Data received by API endpoints | `*Request` | `UpdateAccountInfoRequest` |
-| **Dto** | Data transferred between Web app and API | `*Dto` | `GroupedPendingOrderDto` |
-| **ViewModel** | Data bound to MVC views/partials | `*ViewModel` | `NewOrderViewModel` |
-| **Model** | Internal API-layer models (not exposed) | `*Model` | `OrderModel` |
+| Type | Use For | Example |
+|---|---|---|
+| **Response DTO** | Data returned from API endpoints | `OrderResponse` |
+| **Request DTO** | Data received by API endpoints | `UpdateAccountInfoRequest` |
+| **Dto** | Data transferred between Web app and API | `GroupedPendingOrderDto` |
+| **ViewModel** | Data bound to MVC views/partials | `NewOrderViewModel` |
+| **Model** | Internal API-layer models (not exposed) | `OrderModel` |
 
 ---
 
@@ -20,21 +22,7 @@
 
 ### API Response DTOs
 
-`sealed record` with `init` properties. Use `required` for critical fields. No validation attributes.
-
-```csharp
-namespace MyApp.API.Responses;
-
-public sealed record OrderResponse
-{
-    public required int Id { get; init; }
-    public required Guid BundleLinkKey { get; init; }
-    public required string AccountName { get; init; }
-    public required DateTime CreatedDate { get; init; }
-    public required IReadOnlyList<string> ProductTitles { get; init; }
-    public string? Website { get; init; }
-}
-```
+`sealed record` with `init` properties. Use `required` for critical fields. No validation attributes. See [`examples/orders-reference.cs`](examples/orders-reference.cs) — `Layer 4: DTOs`.
 
 ### API Request DTOs
 
@@ -97,17 +85,6 @@ public sealed class NewOrderViewModel
 ```
 
 ---
-
-## Rules
-
-| Rule | Details |
-|---|---|
-| **Always `sealed`** | All DTOs, requests, responses, and view models should be `sealed` |
-| **Prefer `record`** | Use `sealed record` for all DTOs except ViewModels needing two-way binding |
-| **`required` for critical fields** | Mark fields that must always have a value; optional fields are nullable or have defaults |
-| **`IReadOnlyList<T>` for collections** | Never expose `List<T>` on response DTOs — use `IReadOnlyList<T>` |
-| **No EF entities across boundaries** | Always map entities to DTOs before returning from services or controllers |
-| **Validation on requests only** | Use `[Required]`, `[StringLength]`, `[Phone]`, `[Url]`, `[EmailAddress]` on request DTOs |
 
 ---
 
@@ -185,11 +162,7 @@ public static class ProductMapper
 
 ### When to Use Each
 
-| Scenario | Use |
-|---|---|
-| Simple 1:1 property mapping | Mapperly `[Mapper]` partial class |
-| Custom logic, null coalescing, type conversion | Static mapper method |
-| Mapping needs external data (dictionaries, lookups) | Static mapper method with extra parameters |
+Use Mapperly for simple 1:1 property mapping. Use a static method when you need custom logic, null coalescing, type conversion, or external lookup data (dictionaries, lookups).
 
 ### Rules
 

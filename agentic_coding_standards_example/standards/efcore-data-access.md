@@ -15,7 +15,7 @@
 
 * One repository per entity
 * Inherit from `BaseRepository<TEntity>`
-* Use primary constructors
+* Use primary constructors (see [C# Conventions](csharp-conventions.md))
 * Store typed DbContext in private readonly field
 * All methods async with `CancellationToken cancellationToken = default`
 

@@ -9,11 +9,9 @@
 ### JWT Bearer (API Projects)
 
 - Use `JwtBearerDefaults.AuthenticationScheme`
-- Validate: issuer, audience, lifetime, signing key
-- Clock skew: 5 minutes maximum
-- Sign with HMAC-SHA256
+- Validate issuer, audience, lifetime, and signing key (HMAC-SHA256); clock skew ≤ 5 minutes
 - Include `jti` (unique token ID) and `iat` (issued at) claims
-- Load JWT settings (secret key, issuer, audience) from **AWS Secrets Manager** — never from `appsettings.json`
+- Load JWT settings from **AWS Secrets Manager** — never from `appsettings.json`
 
 ### Cookie Authentication (Web/MVC Projects)
 
@@ -82,12 +80,7 @@ services.AddPooledResilientSqlServerDbContext<AppDbContext>(
 
 ### What Qualifies as a Secret
 
-- Database connection strings (production/staging)
-- JWT signing keys
-- API keys (internal and third-party)
-- SendGrid API keys
-- External API credentials
-- Any password or token
+Connection strings (prod/staging), JWT signing keys, API keys (internal and third-party), SendGrid keys, external API credentials, and any password or token.
 
 ---
 
@@ -95,17 +88,7 @@ services.AddPooledResilientSqlServerDbContext<AppDbContext>(
 
 ### Request DTOs
 
-Use data annotation attributes on all request DTOs:
-
-| Attribute | Use For |
-|---|---|
-| `[Required]` | Mandatory fields |
-| `[StringLength(n)]` | Maximum string length |
-| `[Range(min, max)]` | Numeric range constraints |
-| `[RegularExpression]` | Pattern validation (e.g., zip codes: `@"^\d{5}(-\d{4})?$"`) |
-| `[EmailAddress]` | Email format |
-| `[Phone]` | Phone number format |
-| `[Url]` | URL format |
+Use standard .NET data annotation attributes on all request DTOs: `[Required]`, `[StringLength]`, `[Range]`, `[EmailAddress]`, `[Phone]`, `[Url]`, `[RegularExpression]`.
 
 ### DAL-Level Sanitization
 

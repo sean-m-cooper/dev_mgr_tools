@@ -26,14 +26,7 @@ All branches **must** match the following pattern enforced by the GitHub reposit
 | `bug` | Bug fixes |
 | `poc` | Proof-of-concept / experimental work |
 
-### Format Rules
-
-- **Must** use one of the 7 allowed type prefixes followed by `/`
-- **Must** contain only alphanumeric characters (`A-Z`, `a-z`, `0-9`) and hyphens (`-`) after the prefix separator
-- **Must not** contain spaces, underscores, or dots
-- **Must** use hyphens only as segment separators (not at the start or end of the description)
-- **Must** start and end the description portion with an alphanumeric character
-- **Should** include the Jira ticket number where one exists (e.g. `PROJ-1234`)
+Include the Jira ticket number in the description where one exists (e.g. `PROJ-1234`). All other format rules are enforced by the regex above.
 
 ### Valid Examples
 
@@ -53,12 +46,8 @@ epic/PROJ-100-multi-tenant-support
 ```
 Feature/PROJ-1234-add-payment          # type prefix must be lowercase
 feature/PROJ_1234_add_payment          # underscores not allowed
-feature/add payment feature            # spaces not allowed
 hotfix/PROJ-1234-urgent-fix            # 'hotfix' is not an allowed type
-feature/-starts-with-hyphen            # description must start with alphanumeric
-feature/ends-with-hyphen-              # description must end with alphanumeric
-feature/has.dot.separators             # dots not allowed
-feature/                               # empty description — at least one alphanumeric segment required
+feature/                               # empty description
 ```
 
 ---

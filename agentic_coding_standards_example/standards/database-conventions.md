@@ -106,9 +106,7 @@ ALTER TABLE [app].[order] ADD
 
 ## Data Access Rules
 
-- **LINQ only** — no `FromSqlRaw`, `ExecuteSqlRaw`, or stored procedure calls
-- `AsNoTracking()` for all read queries
-- `AsSplitQuery()` for queries with multiple includes — pair with `AsNoTrackingWithIdentityResolution()` instead of `AsNoTracking()` to avoid duplicate object instances across the split result sets
-- Sanitize user input with `SanitizeTextFilter` (from `BaseRepository`)
-- Never concatenate user input into query strings
-- Register DbContexts with connection pooling (`AddDbContextPool<T>`) and resilience (e.g., `EnableRetryOnFailure` via `UseSqlServer` options or a Polly-based retry policy)
+See [EF Core & Data Access](efcore-data-access.md) for query rules. Two additions specific to this project:
+
+- `AsSplitQuery()` with multiple includes: use `AsNoTrackingWithIdentityResolution()` instead of `AsNoTracking()` to avoid duplicate object instances across split result sets
+- Register DbContexts with connection pooling (`AddDbContextPool<T>`) and resilience (`EnableRetryOnFailure` via `UseSqlServer` options or a Polly-based retry policy)

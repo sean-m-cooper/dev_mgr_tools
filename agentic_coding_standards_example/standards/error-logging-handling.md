@@ -11,16 +11,6 @@
 Controllers catch exceptions and return consistent error responses. Do not let unhandled exceptions leak to the client.
 
 ```csharp
-[HttpGet("{orderId:int}")]
-public async Task<IActionResult> GetOrder(int orderId, CancellationToken ct)
-{
-    var order = await cachedOrderRepository.GetByIdAsync(orderId, ct);
-
-    return order is null
-        ? NotFound()
-        : Ok(order);
-}
-
 [HttpPost]
 public async Task<IActionResult> CreateOrder(
     [FromBody] CreateOrderRequest request,
@@ -53,21 +43,9 @@ public async Task<IActionResult> CreateOrder(
 
 ### Error Response Format
 
-API projects use a consistent error response:
+API projects: `sealed record ErrorResponse { bool Success; string Message; }` — `Success` is always `false` for errors.
 
-```csharp
-public sealed record ErrorResponse
-{
-    public required bool Success { get; init; }  // Always false for errors
-    public required string Message { get; init; }
-}
-```
-
-MVC (Web) projects return JSON for AJAX calls:
-
-```csharp
-return Json(new { success = false, message = "Description of what went wrong." });
-```
+MVC (Web) projects: `return Json(new { success = false, message = "..." });`
 
 ### Exception Handling Rules
 
@@ -100,13 +78,7 @@ return Json(new { success = false, message = "Description of what went wrong." }
 
 ### ILogger&lt;T&gt; Injection
 
-Every class that needs logging injects `ILogger<T>` via primary constructor:
-
-```csharp
-public class OrdersController(
-    ICachedOrderRepository cachedOrderRepository,
-    ILogger<OrdersController> logger) : ControllerBase
-```
+Inject `ILogger<T>` via primary constructor in every class that needs logging (see [C# Conventions](csharp-conventions.md)).
 
 ### Log Levels
 
@@ -119,89 +91,33 @@ public class OrdersController(
 
 ### Structured Logging (Message Templates)
 
-**Always** use message templates with named parameters. Never use string interpolation.
+Always use message templates with named parameters — never string interpolation. Always pass the exception object as the first argument to `LogError` to capture the full stack trace.
 
 ```csharp
-// ✅ Correct — structured, searchable, parameters captured as properties
-logger.LogInformation(
-    "Successfully retrieved user for username: {Username}. External user found: {ExternalUserFound}",
-    username, externalUser != null);
+// ✅ Correct
+logger.LogInformation("Retrieved user {Username}. External found: {ExternalUserFound}", username, externalUser != null);
+logger.LogError(ex, "Error creating order for account {AccountNumber}", request.AccountNumber);
 
-logger.LogError(ex,
-    "Error retrieving user for username: {Username}",
-    username);
-
-// ❌ Wrong — string interpolation destroys structured logging
-logger.LogInformation($"Successfully retrieved user for {username}");
-logger.LogError($"Error: {ex.Message}");
-```
-
-### Exception Logging
-
-**Always pass the exception object as the first parameter.** This ensures the full stack trace is captured.
-
-```csharp
-// ✅ Correct — full exception + context
-catch (Exception ex)
-{
-    logger.LogError(ex, "Error creating order for account {AccountNumber}",
-        request.AccountNumber);
-    return StatusCode(500, "An error occurred.");
-}
-
-// ❌ Wrong — loses stack trace
-catch (Exception ex)
-{
-    logger.LogError("Error: {Message}", ex.Message);
-}
+// ❌ Wrong — interpolation destroys structured logging; omitting ex loses the stack trace
+logger.LogInformation($"Retrieved user {username}");
+logger.LogError("Error: {Message}", ex.Message);
 ```
 
 ### OperationCanceledException
 
-Cancellation is expected, not an error. Log at Information level and don't re-throw from controller boundaries.
+Cancellation is expected, not an error. Log at `Information` and don't re-throw from controller or service boundaries.
 
 ```csharp
 catch (OperationCanceledException)
 {
     logger.LogInformation("Request cancelled for operation: {Operation}", nameof(GetOrders));
     return StatusCode(StatusCodes.Status408RequestTimeout, "The request was cancelled.");
-}
-```
-
-In background services, use cancellation to exit loops cleanly:
-
-```csharp
-catch (OperationCanceledException)
-{
-    logger.LogInformation("{ServiceName} cancellation requested", nameof(ProductCacheRefreshService));
-    break;
+    // In background service loops: use `break` instead of returning.
 }
 ```
 
 ### Logging Configuration
 
-Standard `appsettings.json` configuration:
+Standard `appsettings.json` log levels: `Default` → `Information` · `Microsoft.AspNetCore` → `Warning` · App namespace → `Debug` when needed.
 
-```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  }
-}
-```
-
-| Namespace | Level | Reason |
-|---|---|---|
-| `Default` | `Information` | Capture operational events |
-| `Microsoft.AspNetCore` | `Warning` | Reduce framework noise |
-| App namespace (e.g., `MyApp.Web`) | `Debug` | Enhanced visibility when needed |
-
-### What NOT to Log
-
-- Passwords, tokens, API keys, or secrets
-- Full request/response bodies containing PII
-- Credit card numbers or payment details
-- Health check pings (use `Warning` level filter for health check endpoints)
+> For what not to log, see [Security](security-standards.md) — Logging Security.

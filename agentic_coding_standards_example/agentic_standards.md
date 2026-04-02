@@ -38,27 +38,25 @@ They unify and supersede prior tool-specific instruction files.
 
 Detailed standards are organized into focused modules. **Always load this root document.** Load additional modules based on what you are working on — multiple modules may be loaded simultaneously when work spans areas (e.g., C# Conventions + API Controllers when building a new endpoint).
 
-| Module | Load when | Path |
-|---|---|---|
-| [Golden Rules](standards/golden-rules.md) | **Always loaded** | `standards/golden-rules.md` |
-| [Agentic Workflow](standards/agentic-workflow.md) | **Always loaded** | `standards/agentic-workflow.md` |
-| [Architecture](standards/architecture.md) | Tech stack, design principles, deviations | `standards/architecture.md` |
-| [C# Conventions](standards/csharp-conventions.md) | Any C# code changes | `standards/csharp-conventions.md` |
-| [API Controllers](standards/api-controllers.md) | Controller or endpoint work | `standards/api-controllers.md` |
-| [EF Core & Data Access](standards/efcore-data-access.md) | Entity, repository, or query work | `standards/efcore-data-access.md` |
-| [AWS Lambda](standards/aws-lambda.md) | Lambda function work | `standards/aws-lambda.md` |
-| [Testing](standards/testing.md) | Writing or modifying tests | `standards/testing.md` |
-| [Performance](standards/performance.md) | Optimizing performance-critical code | `standards/performance.md` |
-| [Commenting & Documentation](standards/commenting-documentation.md) | Adding docs or inline comments | `standards/commenting-documentation.md` |
-| [CI/CD & DevOps](standards/cicd-devops.md) | Build pipelines or deployment scripts | `standards/cicd-devops.md` |
-| [Git & Commits](standards/git-commits.md) | Branching, committing, Git workflow | `standards/git-commits.md` |
-| [Reference Implementation](standards/reference-implementation.md) | Building a new feature end-to-end | `standards/reference-implementation.md` |
-| [Approved Packages](standards/approved-packages.md) | Adding or choosing NuGet dependencies | `standards/approved-packages.md` |
-| [Error Handling & Logging](standards/error-handling-logging.md) | Error handling, catch blocks, logging | `standards/error-handling-logging.md` |
-| [Database Conventions](standards/database-conventions.md) | Schema, naming, audit columns, soft-delete | `standards/database-conventions.md` |
-| [DTO & Mapping](standards/dto-mapping.md) | DTOs, requests, responses, mapping | `standards/dto-mapping.md` |
-| [Security](standards/security.md) | Auth, secrets, input validation, CORS | `standards/security.md` |
-| [PR Checklist](standards/pr-checklist.md) | Preparing or reviewing pull requests | `standards/pr-checklist.md` |
+| Module | Load when |
+|---|---|
+| [Golden Rules](standards/golden-rules.md) | **Always loaded** |
+| [Agentic Workflow](standards/agentic-workflow.md) | **Always loaded** |
+| [Architecture](standards/architecture.md) | Tech stack, design principles, deviations |
+| [C# Conventions](standards/csharp-conventions.md) | Any C# code changes |
+| [API Controllers](standards/api-controllers.md) | Controller or endpoint work |
+| [EF Core & Data Access](standards/efcore-data-access.md) | Entity, repository, or query work |
+| [Testing](standards/testing-standards.md) | Writing or modifying tests |
+| [Performance](standards/performance.md) | Optimizing performance-critical code |
+| [Commenting & Documentation](standards/commenting-documentation.md) | Adding docs or inline comments |
+| [CI/CD & DevOps](standards/CICD%20&%20DevOps.md) | Build pipelines or deployment scripts |
+| [Git & Commits](standards/git-commits.md) | Branching, committing, Git workflow |
+| [Reference Implementation](standards/reference-implementation.md) | Building a new feature end-to-end |
+| [Error Handling & Logging](standards/error-logging-handling.md) | Error handling, catch blocks, logging |
+| [Database Conventions](standards/database-conventions.md) | Schema, naming, audit columns, soft-delete |
+| [DTO & Mapping](standards/dto-mapping.md) | DTOs, requests, responses, mapping |
+| [Security](standards/security-standards.md) | Auth, secrets, input validation, CORS |
+| [PR Checklist](standards/pr-checklist.md) | Preparing or reviewing pull requests |
 
 ---
 

@@ -58,8 +58,6 @@ Every PR description should include:
 When reviewing a PR, verify:
 
 - [ ] Change matches the linked ticket's acceptance criteria
-- [ ] No standards violations (reference the specific standard if flagging one)
-- [ ] Error paths are handled and logged appropriately
-- [ ] No N+1 query patterns or missing `AsNoTracking()`
+- [ ] No standards violations — cite the specific standard when flagging
+- [ ] No N+1 query patterns, unhandled error paths, or missing `AsNoTracking()`
 - [ ] New dependencies are on the [approved packages](approved-packages.md) list
-- [ ] Tests cover both success and failure paths
