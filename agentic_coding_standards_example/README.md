@@ -8,6 +8,41 @@ Fork this, replace the example content with your actual standards, and commit it
 
 ---
 
+## Structure
+
+```
+agentic_coding_standards_example/
+├── README.md
+└── ai/
+    ├── agentic_standards.md          ← Root document (always loaded)
+    ├── claude/
+    │   └── claude.md                 ← Claude Code agent instructions
+    ├── copilot/
+    │   └── copilot-instructions.md   ← GitHub Copilot instructions
+    └── standards/
+        ├── golden-rules.md           ← Always loaded
+        ├── agentic-workflow.md       ← Always loaded
+        ├── architecture.md
+        ├── api-controllers.md
+        ├── CICD & DevOps.md
+        ├── commenting-documentation.md
+        ├── csharp-conventions.md
+        ├── database-conventions.md
+        ├── dto-mapping.md
+        ├── efcore-data-access.md
+        ├── error-logging-handling.md
+        ├── git-commits.md
+        ├── performance.md
+        ├── pr-checklist.md
+        ├── reference-implementation.md
+        ├── security-standards.md
+        ├── testing-standards.md
+        └── examples/
+            └── orders-reference.cs   ← Code examples (loaded on demand)
+```
+
+---
+
 ## How It Works
 
 Agents always load the root document (`agentic_standards.md`) plus the two always-loaded modules. Additional modules are loaded only when relevant to the current task — an agent working on a database query loads `efcore-data-access.md`; one building a new endpoint loads `reference-implementation.md`.
